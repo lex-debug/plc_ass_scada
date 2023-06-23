@@ -48,7 +48,6 @@ netifaces==0.10.4
 networkx==3.0
 nose2==0.9.1
 numpy==1.24.2
-oauthlib==3.1.0
 osrf-pycommon==0.1.11
 outcome==1.2.0
 packaging==20.3
