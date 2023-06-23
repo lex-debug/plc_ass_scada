@@ -96,7 +96,7 @@ PySocks==1.7.1
 pytest==4.6.9
 pytest-cov==2.8.1
 pytest-mock==1.10.4
-python-apt==2.0.1+ubuntu0.20.4.1
+python-apt==2.0.1
 python-dateutil==2.8.2
 python-debian===0.1.36ubuntu1
 python-snappy==0.5.3
