@@ -206,6 +206,6 @@ def get_current_water_level():
     return json_file
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
     
         
