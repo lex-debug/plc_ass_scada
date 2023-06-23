@@ -25,12 +25,6 @@ jupyter_core==5.3.0
 keyring==18.0.1
 kiwisolver==1.0.1
 lark-parser==0.8.1
-launch==0.10.10
-launch-ros==0.11.7
-launch-testing==0.10.10
-launch-testing-ros==0.11.7
-launch-xml==0.10.10
-launch-yaml==0.10.10
 launchpadlib==1.10.13
 lazr.restfulclient==0.14.2
 lazr.uri==1.0.3
