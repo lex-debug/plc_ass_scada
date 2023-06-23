@@ -1,0 +1,13 @@
+__pycache__
+app.py
+database.py
+first_figure.html
+hello.py
+modifyRating.py
+style.css
+test.py
+templates/base.html
+templates/create.html
+templates/edit.html
+templates/index1.html
+templates/post.html
