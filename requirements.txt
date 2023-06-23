@@ -171,8 +171,6 @@ Pillow==7.0.0
 platformdirs==3.2.0
 plotly==5.15.0
 pluggy==0.13.0
-# Editable install with no version control (pohm-robotics-arm==0.0.0)
--e /home/alexpc/dev_ws/build/pohm_robotics_arm
 prompt-toolkit==3.0.38
 proto-plus==1.22.1
 protobuf==3.20.3
