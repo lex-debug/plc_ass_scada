@@ -123,7 +123,7 @@ def startSystem():
 
 
 
-@app.route('/stop_plc', methods=('POST', ))
+@app.route('/stopDO', methods=('POST', ))
 def stopSystem():
     global client, id
 
@@ -145,7 +145,7 @@ def get_data():
     # Connect to the MySQL database
     try:
         with connect(
-            host='localhost',
+            host=app.config.get('DB_HOST'),
             user=app.config.get('DB_USER'),
             password=app.config.get('DB_PASS'),
             database='plc_ass_scada_db'
@@ -186,11 +186,9 @@ def get_data():
 
 @app.route('/get_current_water_level.php')
 def get_current_water_level():
-    print(app.config.get("DB_USER"))
-    print(app.config.get("DB_PASS"))
     try:
         with connect(
-            host='localhost',
+            host=app.config.get('DB_HOST'),
             user=app.config.get("DB_USER"),
             password=app.config.get("DB_PASS"),
             database='plc_ass_scada_db'
