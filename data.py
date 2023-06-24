@@ -25,8 +25,8 @@ def upload_water_level():
         try:
             with connect(
                 host='localhost',
-                user=os.environ.get('DB_USER'),
-                password=os.environ.get('DB_PASS'),
+                user=app.config.get('DB_USER'),
+                password=app.config.get('DB_PASS'),
                 database='plc_ass_scada_db'
             ) as connection:
                 insert_level_query = """
@@ -42,6 +42,8 @@ def upload_water_level():
         time.sleep(1)
 
 app = Flask(__name__)
+env_config = os.getenv("APP_SETTINGS", "config.DevelopmentConfig")
+app.config.from_object(env_config)
 app.config['SECRET_KEY'] = '123abc12'
 CORS(app)
 
@@ -144,8 +146,8 @@ def get_data():
     try:
         with connect(
             host='localhost',
-            user=os.environ.get('DB_USER'),
-            password=os.environ.get('DB_PASS'),
+            user=app.config.get('DB_USER'),
+            password=app.config.get('DB_PASS'),
             database='plc_ass_scada_db'
         ) as connection:
             select_level_query = '''
@@ -184,11 +186,13 @@ def get_data():
 
 @app.route('/get_current_water_level.php')
 def get_current_water_level():
+    print(app.config.get("DB_USER"))
+    print(app.config.get("DB_PASS"))
     try:
         with connect(
             host='localhost',
-            user=os.environ.get('DB_USER'),
-            password=os.environ.get('DB_PASS'),
+            user=app.config.get("DB_USER"),
+            password=app.config.get("DB_PASS"),
             database='plc_ass_scada_db'
         ) as connection:
             select_current_water_level_query = 'SELECT level FROM (SELECT * FROM level ORDER BY dt DESC)Var1 LIMIT 1'
