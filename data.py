@@ -148,7 +148,7 @@ def get_data():
             host=app.config.get('DB_HOST'),
             user=app.config.get('DB_USER'),
             password=app.config.get('DB_PASS'),
-            database='plc_ass_scada_db'
+            database=app.config.get('DB_NAME')
         ) as connection:
             select_level_query = '''
             SELECT * FROM (SELECT * FROM level ORDER BY dt DESC LIMIT 10)Var1 
@@ -191,7 +191,7 @@ def get_current_water_level():
             host=app.config.get('DB_HOST'),
             user=app.config.get("DB_USER"),
             password=app.config.get("DB_PASS"),
-            database='plc_ass_scada_db'
+            database=app.config.get("DB_NAME")
         ) as connection:
             select_current_water_level_query = 'SELECT level FROM (SELECT * FROM level ORDER BY dt DESC)Var1 LIMIT 1'
             with connection.cursor() as cursor:
