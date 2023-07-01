@@ -53,30 +53,6 @@
             });
         }
 
-        function update_ip_addr_box()
-        {
-            const obj = JSON.parse({{ json_dict | tojson }})
-            document.getElementById("ip_address").value = obj.ip_addr_value;
-            document.getElementById("ip_address").readOnly = obj.ip_addr_readOnly;
-            if (obj.ip_addr_readOnly)
-            {
-                document.getElementById("ip_address").style = 'background-color: gray';
-            }
-            else 
-            {
-                document.getElementById("ip_address").style = 'background-color: #ffffff';
-            }
-            document.getElementById("slave_id").value = obj.slave_id;
-            document.getElementById("slave_id").readOnly = obj.slave_id_readOnly;
-            if (obj.slave_id_readOnly)
-            {
-                document.getElementById("slave_id").style = 'background-color: gray';
-            }
-            else
-            {
-                document.getElementById("slave_id").style = 'background-color: #ffffff';
-            }
-        }
         function selectWaterLevel()
         {
             var target_water_level = 0;
@@ -101,7 +77,6 @@
             };
             xhr.send(JSON.stringify(data));
         }
-        update_ip_addr_box();
         fetchData();
         var waterLevelSelector = document.getElementsByName("waterLevelRadio");
         // Iterate over the NodeList and attach event listener to each element

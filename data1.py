@@ -10,11 +10,7 @@ from pymodbus.device import ModbusDeviceIdentification
 import time
 # from scada import factoryioAPI
 
-client = None
-id = 0
-daqThread = None
-dict = {'ip_addr_value': '', 'ip_addr_readOnly': False, 'slave_id': '', 'slave_id_readOnly': False, 'setpoint': ''}
-connected = False
+
 
 app = Flask(__name__)
 env_config = os.getenv("APP_SETTINGS", "config.DevelopmentConfig")
@@ -24,56 +20,7 @@ CORS(app)
 
 @app.route('/')
 def index():
-    global dict
-    json_dict = json.dumps(dict)
-    return render_template('index.html', json_dict=json_dict)
-
-
-
-@app.route('/connect_server', methods=('POST', ))
-def connect_server():
-    global client, dict, connected
-
-    dict['ip_addr_value'] = request.form['ip_address']
-
-    if dict['ip_addr_value'] == '':
-        flash('IP Address is required!')
-    else:
-        client = ModbusTcpClient(host=dict['ip_addr_value'])
-        connected = client.connect()
-        print(connected)
-
-    dict['ip_addr_readOnly'] = connected
-    return redirect(url_for('index'))
-
-
-
-@app.route('/disconnect_server', methods=('POST', ))
-def disconnect_server():
-    global client, dict
-
-    dict['ip_addr_value'] = ''
-    dict['ip_addr_readOnly'] = False
-    dict['slave_id'] = ''
-    dict['slave_id_readOnly'] = False
-    dict['setpoint'] = ''
-    client.close()
-
-    return redirect(url_for('index'))
-
-
-@app.route('/get_slave_id', methods=('POST', ))
-def get_slave_id():
-    global client, id, daqThread, dict
-    
-    if request.form['slave_id'] == '':
-        flash('Slave ID is required!')
-    else:
-        dict['slave_id'] = request.form['slave_id']
-        dict['slave_id_readOnly'] = True
-        id = int(dict['slave_id'])
-
-    return redirect(url_for('index'))
+    return render_template('index.html')
 
 
 
@@ -154,16 +101,15 @@ def get_current_water_level():
 
 @app.route('/process_data', methods=['POST'])
 def process_data():
-    global client, id
 
     data = request.get_json()
     value = data.get("value")
 
-    client.write_coil(802, 0, id)
-    client.write_coil(803, 0, id)
-    client.write_coil(804, 0, id)
+    # client.write_coil(802, 0, id)
+    # client.write_coil(803, 0, id)
+    # client.write_coil(804, 0, id)
 
-    client.write_coil(801+value, 1, id)
+    # client.write_coil(801+value, 1, id)
 
     return "Data processed successfully"
 
