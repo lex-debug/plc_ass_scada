@@ -16,35 +16,6 @@ daqThread = None
 dict = {'ip_addr_value': '', 'ip_addr_readOnly': False, 'slave_id': '', 'slave_id_readOnly': False, 'setpoint': ''}
 connected = False
 
-# Private function
-def upload_water_level():
-    global id
-    while True: 
-        plc_input_registers = client.read_discrete_inputs(800, 3, id)
-        s1 = plc_input_registers.bits[0]
-        s2 = plc_input_registers.bits[1]
-        s3 = plc_input_registers.bits[2]
-        water_level = s1 + s2 + s3
-        water_level = water_level * 30
-        try:
-            with connect(
-                host='localhost',
-                user=app.config.get('DB_USER'),
-                password=app.config.get('DB_PASS'),
-                database='plc_ass_scada_db'
-            ) as connection:
-                insert_level_query = """
-                INSERT INTO level
-                (level)
-                VALUES
-                """
-                with connection.cursor() as cursor:
-                    cursor.execute(insert_level_query+"("+str(water_level)+")")
-                    connection.commit()
-        except Error as e:
-            print(e)
-        time.sleep(1)
-
 app = Flask(__name__)
 env_config = os.getenv("APP_SETTINGS", "config.DevelopmentConfig")
 app.config.from_object(env_config)
@@ -102,9 +73,6 @@ def get_slave_id():
         dict['slave_id_readOnly'] = True
         id = int(dict['slave_id'])
 
-        # For updating the bar
-        daqThread = Thread(target=upload_water_level)
-        daqThread.start()
     return redirect(url_for('index'))
 
 
