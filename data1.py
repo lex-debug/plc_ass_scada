@@ -12,6 +12,10 @@ import time
 
 
 
+radio_button_value = 0
+
+
+
 app = Flask(__name__)
 env_config = os.getenv("APP_SETTINGS", "config.DevelopmentConfig")
 app.config.from_object(env_config)
@@ -99,19 +103,22 @@ def get_current_water_level():
 
 
 
-@app.route('/process_data', methods=['POST'])
+@app.route('/process_data', methods=('GET', 'POST', ))
 def process_data():
+    global radio_button_value
 
-    data = request.get_json()
-    value = data.get("value")
+    if request.method == 'POST':
+        radio_button = request.get_json()
+        radio_button_value = radio_button.get("value")
 
-    # client.write_coil(802, 0, id)
-    # client.write_coil(803, 0, id)
-    # client.write_coil(804, 0, id)
-
-    # client.write_coil(801+value, 1, id)
-
-    return "Data processed successfully"
+        return "Data processed successfully"
+    elif request.method == 'GET':
+        response = {
+            'value': str(radio_button_value)
+        }
+        json_file = jsonify(response)
+        return json_file
+    
 
 
 if __name__ == '__main__':
