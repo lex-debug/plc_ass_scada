@@ -77,14 +77,14 @@
             };
             xhr.send(JSON.stringify(data));
         }
-        var waterLevelSelector = document.getElementsByName("waterLevelRadio");
-        // Iterate over the NodeList and attach event listener to each element
-        for (var i = 0; i < waterLevelSelector.length; i++)
-        {
-            waterLevelSelector[i].addEventListener("change", selectWaterLevel);
-        }
+        // var waterLevelSelector = document.getElementsByName("waterLevelRadio");
+        // // Iterate over the NodeList and attach event listener to each element
+        // for (var i = 0; i < waterLevelSelector.length; i++)
+        // {
+        //     waterLevelSelector[i].addEventListener("change", selectWaterLevel);
+        // }
         setInterval(fetchData, 1000);
-        // setInterval(selectWaterLevel, 2000);
+        setInterval(selectWaterLevel, 2000);
     </script>
     {% endblock %}
     
