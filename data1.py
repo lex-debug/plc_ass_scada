@@ -99,6 +99,21 @@ def get_current_water_level():
 
 
 
+@app.route('/process_data', methods=['POST'])
+def process_data():
+
+    data = request.get_json()
+    value = data.get("value")
+
+    # client.write_coil(802, 0, id)
+    # client.write_coil(803, 0, id)
+    # client.write_coil(804, 0, id)
+
+    # client.write_coil(801+value, 1, id)
+
+    return "Data processed successfully"
+
+
 if __name__ == '__main__':
     app.run(debug=True)
     
